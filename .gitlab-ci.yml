@@ -13,4 +13,5 @@ linter:
 test:
   stage: test 
   script:
-    - ./run-tests
+    - make -sj SANITIZER=all
+    - make -sk test SANITIZER=all
