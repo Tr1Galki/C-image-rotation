@@ -117,8 +117,7 @@ $$(TARGET.$(1)): $$(OBJECTS.$(1)) | $$(DIRS.$(1))
 	$(LINKER) $(LDFLAGS) $$(OBJECTS.$(1)) -o $$@
 
 $$(OBJDIR.$(1))/%.o: $$(SRCDIR.$(1))/%.c | $$(DIRS.$(1))
-	$(CC) $(CFLAGS.$(1)) -M -MP $$< >$$@.d
-	$(CC) $(CFLAGS.$(1)) -c $$< -o $$@
+	$(CC) $(CFLAGS.$(1)) -c $$< -o $$@ -MD -MF $$@.d -MP
 
 -include $$(SRCDEPS.$(1))
 
