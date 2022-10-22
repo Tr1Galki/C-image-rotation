@@ -62,8 +62,8 @@ if [ "$rc" -ne "0" ]; then
     echo
     echo "Failed at creating output. Command: $main_cmd"
     if [ ! -z "$log_dir" ]; then
-	    [ ! -e "$log_out" ] && echo "*** stdout log: $log_out ***" && cat $log_out
-	    [ ! -e "$log_err" ] && echo "*** stderr log: $log_err ***" && cat $log_err
+	    [ -s "$log_out" ] && echo "*** stdout log: $log_out ***" && cat "$log_out"
+	    [ -s "$log_err" ] && echo "*** stderr log: $log_err ***" && cat "$log_err"
     fi
     echo
     echo "$test_name: Failed with exit code $rc"
