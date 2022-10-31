@@ -5,7 +5,7 @@
 #include "common.h"
 #include "io.h"
 
-void usage() {
+void usage(void) {
   fprintf(stderr,
           "Usage: ./" EXECUTABLE_NAME " BMP_FILE_NAME1 BMP_FILE_NAME2\n");
 }
