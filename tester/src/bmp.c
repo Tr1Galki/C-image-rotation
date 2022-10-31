@@ -27,9 +27,11 @@
 
 #define DECLARE_FIELD(t, n) t n;
 
-struct __attribute__((packed)) header {
+#pragma pack(push, 1)
+struct header {
   FOR_HEADER(DECLARE_FIELD)
 };
+#pragma pack(pop)
 
 #undef FOR_HEADER
 #undef DECLARE_FIELD
@@ -66,8 +68,8 @@ enum bmp_compare_status bmp_cmp(FILE *f1, FILE *f2) {
     case CMP_DIFF: return BMP_CMP_DIFF;
     case CMP_ERROR: return BMP_CMP_FILE_ERROR;
     case CMP_EQ:
-      if (fseek(f1, padding, SEEK_CUR) != 0 ||
-          fseek(f2, padding, SEEK_CUR) != 0)
+      if (fseek(f1, (long) padding, SEEK_CUR) != 0 ||
+          fseek(f2, (long) padding, SEEK_CUR) != 0)
         return BMP_CMP_FILE_ERROR;
       break;
     default: err("Implementation error"); break;
