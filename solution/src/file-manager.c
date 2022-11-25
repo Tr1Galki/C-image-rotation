@@ -2,7 +2,7 @@
 #include "bmp.h"
 #include <stdbool.h>
 
-bool read_file(FILE** file,char* file_name) {
+bool read_file(FILE** file, char* file_name) {
     *file = fopen(file_name, "rb");
     return (file != NULL);
 }
