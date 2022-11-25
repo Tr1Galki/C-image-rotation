@@ -33,7 +33,7 @@ enum read_status from_bmp( FILE* const in, struct image* const img );
 
 enum write_status to_bmp( FILE* const out, const struct image* const img );
 
-enum read_status create_bmp_header();
+struct bmp_header create_bmp_header(const struct image* img);
 
 enum read_status read_header(FILE* file, struct bmp_header* header);
 

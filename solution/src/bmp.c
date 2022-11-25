@@ -1,8 +1,27 @@
 #include "bmp.h"
+#include  <stdint.h>
 
+struct bmp_header create_bmp_header(const struct image* img) {
 
-enum read_status create_bmp_header() {
-    return READ_OK;
+    size_t size = (img->width + get_padding(img->width)) * img->height * sizeof(struct pixel);
+
+    return (struct bmp_header){
+            .bfType = 19778,
+            .bfileSize = size + sizeof(struct bmp_header),
+            .bfReserved = 0,
+            .bOffBits = sizeof(struct bmp_header),
+            .biSize = 40,
+            .biWidth = img->width,
+            .biHeight = img->height,
+            .biPlanes = 1,
+            .biBitCount = 24,
+            .biCompression = 0,
+            .biSizeImage = size,
+            .biXPelsPerMeter = 0,
+            .biYPelsPerMeter = 0,
+            .biClrUsed = 0,
+            .biClrImportant = 0,
+    };
 }
 
 enum read_status from_bmp(FILE* const in, struct image* const img) 
@@ -11,10 +30,10 @@ enum read_status from_bmp(FILE* const in, struct image* const img)
     if (!read_header(in, &header)) 
         return READ_INVALID_HEADER; 
 
-    size_t padding = get_padding(header.biWidth);
-
     if (make_image(header.biWidth, header.biHeight, img) != 0) 
         return READ_INVALID_BITS;
+
+    size_t padding = get_padding(header.biWidth);
     
     for (size_t i = 0; i < img->height; ++i){
         if (fread(img->data + (i * img->width), sizeof(struct pixel), img->width, in) != img->width) {
@@ -33,7 +52,29 @@ enum read_status from_bmp(FILE* const in, struct image* const img)
 
 enum write_status to_bmp(FILE* const out, const struct image* const img) 
 {
-    return WRITE_ERROR;
+    struct bmp_header header = create_bmp_header(img);
+
+    if (!fwrite(&header, sizeof(struct bmp_header), 1, out)){
+        return WRITE_ERROR;
+    }
+
+    size_t padding = get_padding(img->width);
+    uint8_t zero_padding = 0;
+
+    for (size_t i = 0; i < img->height; i++){
+        if (fwrite(img->data + (i * img->width), sizeof(struct pixel), img->width, out) != img->width){
+            return WRITE_ERROR;
+        }
+
+        for (size_t j = 0; j < padding; j++){
+            if (!fwrite(&zero_padding, sizeof(uint8_t), 1, out)){
+                return WRITE_ERROR;
+            }
+        }
+    }
+
+    return WRITE_OK;
+
 }
 
 enum read_status read_header(FILE* file, struct bmp_header* header) {
