@@ -1,9 +1,9 @@
 #ifndef IMGAE_H
 #define IMAGE_H
-
+#include <stddef.h>
 #include <stdint.h>
 #include "states.h"
-#include <stddef.h>
+
 
 struct image {
   uint64_t width, height;

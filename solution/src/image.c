@@ -1,6 +1,7 @@
-#include "image.h"
 #include <stdint.h>
 #include <stdlib.h>
+#include "image.h"
+
 
 
 enum memory_status make_image(size_t width, size_t height, struct image* img) {

@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include "bmp.h"
 #include <stdbool.h>
+#include "bmp.h"
+
 
 bool read_file(FILE** file, char* file_name) {
     *file = fopen(file_name, "rb");

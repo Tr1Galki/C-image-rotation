@@ -1,5 +1,6 @@
-#include "rotate.h"
 #include <stdlib.h>
+#include "rotate.h"
+
 
 struct image rotate(struct image source) {
     struct image rotated = {

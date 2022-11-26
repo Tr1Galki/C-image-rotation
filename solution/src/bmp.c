@@ -1,5 +1,6 @@
-#include "bmp.h"
 #include  <stdint.h>
+#include "bmp.h"
+
 
 struct bmp_header create_bmp_header(const struct image* img) {
 
