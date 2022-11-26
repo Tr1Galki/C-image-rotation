@@ -41,3 +41,4 @@ enum read_status read_header(FILE* file, struct bmp_header* header);
 enum write_status write_header(FILE* file, const struct bmp_header* header);
 
 #endif
+
