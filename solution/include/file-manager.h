@@ -1,8 +1,9 @@
 #ifndef FILE_MANAGER
 #define FILE_MANAGER
 
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
+
 
 #include "bmp.h"
 

@@ -1,8 +1,9 @@
 #ifndef BMP_H
 #define BMP_H
 #include "image.h"
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
+
 
 
 

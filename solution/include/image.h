@@ -1,8 +1,9 @@
-#ifndef IMGAE_H
+#ifndef IMAGE_H
 #define IMAGE_H
+#include "states.h"
 #include <stdint.h>
 #include <stdlib.h>
-#include "states.h"
+
 
 
 struct image {
