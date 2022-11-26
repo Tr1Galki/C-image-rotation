@@ -24,7 +24,7 @@ struct bmp_header create_bmp_header(const struct image* img) {
     };
 }
 
-enum read_status from_bmp(FILE* const in, struct image*  img) 
+enum read_status from_bmp(FILE* const in, struct image* img) 
 {
     struct bmp_header header;
     if (read_header(in, &header)) 
@@ -35,19 +35,21 @@ enum read_status from_bmp(FILE* const in, struct image*  img)
 
     size_t padding = get_padding(header.biWidth);
     
-    for (size_t i = 0; i < img->height; ++i){
-        if (fread(img->data + (i * img->width), sizeof(struct pixel), img->width, in) != img->width) {
-            free_image(img);
-            return READ_INVALID_SIGNATURE;
+    for (size_t y = 0; y < img->height; y++){
+            size_t ret = fread(img->data + img->width * y, sizeof (struct pixel), img->width, in);
+            if (ret != img->width){
+                if (feof(in)){
+                    return READ_ERROR;
+                }
+                return READ_ERROR;
+            }
+            if (fseek(in, padding, SEEK_CUR)){
+                return READ_ERROR;
+            }
         }
-        if (fseek(in, (long) padding, SEEK_CUR) != 0) {
-            free_image(img);
-            return READ_INVALID_BITS;
-        }
-
-    }
 
     return READ_OK;
+
 }
 
 enum write_status to_bmp(FILE* const out,  struct image const* img) 

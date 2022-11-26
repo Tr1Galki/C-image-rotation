@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "image.h"
-#include "states.h"
+
 
 struct __attribute__((packed)) bmp_header {
         uint16_t bfType;
