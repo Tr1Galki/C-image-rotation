@@ -1,29 +1,51 @@
 #include <stdio.h>
 #include "bmp.h"
 #include "file-manager.h"
-#include "states.h"
 #include "rotate.h"
 
 int main( int argc, char** argv ) {
     (void) argc; (void) argv; // supress 'unused parameters' warning
-    // FILE* file = NULL;
-    // read_file(&file, "C:\\Users\\pogchamp\\Documents\\cProjects\\assignment-3-image-rotation\\solution\\src\\input.bmp");
-    // struct bmp_header my_header;
-    // int b = read_header(file, &my_header);
-    // printf("\nENUM VALUE:%d ",b);
+    
+    
     FILE *in,*out;
     
-    // if(read_file(&in, "C:\\Users\\pogchamp\\Documents\\cProjects\\assignment-3-image-rotation\\solution\\src\\input.bmp") && write_file(&out, "C:\\Users\\pogchamp\\Documents\\cProjects\\assignment-3-image-rotation\\solution\\src\\output.bmp"))
-    if(read_file(&in, argv[0]) && write_file(&out, argv[1])) {
+    if(read_file(&in, argv[1]) && write_file(&out, argv[2])) 
+    {
+        
         struct image img;
 
-        from_bmp(in, &img);
+        enum read_status status_r = from_bmp(in, &img);
+        
+        switch(status_r) {
+            case READ_INVALID_HEADER:
+                printf("%s\n","invalid header");
+            case READ_INVALID_BITS:
+                printf("%s\n", "invalid bits error");
+                break;
+            case READ_ERROR:
+                printf("%s\n", "read error");
+                break;
+            default:
+                break;
+
+        }
+             
 
         struct image rotated_img = rotate(img);
 
-        to_bmp(out,&rotated_img);
+        enum write_status status_w = to_bmp(out,&rotated_img);
 
+        if (status_w == WRITE_ERROR) 
+            printf("%s\n", "write error");
 
+        close_file(in);
+        close_file(out);
+        free_image(&img);
+        free_image(&rotated_img);
+        
+
+    } else {
+        return 1;
     }
 
     return 0;
