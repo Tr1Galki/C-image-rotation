@@ -24,10 +24,10 @@ struct bmp_header create_bmp_header(const struct image* img) {
     };
 }
 
-enum read_status from_bmp(FILE* const in, struct image* const img) 
+enum read_status from_bmp(FILE* const in, struct image*  img) 
 {
     struct bmp_header header;
-    if (!read_header(in, &header)) 
+    if (read_header(in, &header)) 
         return READ_INVALID_HEADER; 
 
     if (make_image(header.biWidth, header.biHeight, img) != 0) 
@@ -50,7 +50,7 @@ enum read_status from_bmp(FILE* const in, struct image* const img)
     return READ_OK;
 }
 
-enum write_status to_bmp(FILE* const out, const struct image* const img) 
+enum write_status to_bmp(FILE* const out,  struct image const* img) 
 {
     struct bmp_header header = create_bmp_header(img);
 
@@ -77,14 +77,9 @@ enum write_status to_bmp(FILE* const out, const struct image* const img)
 
 }
 
-enum read_status read_header(FILE* file, struct bmp_header* header) {
-    if (fread(header, sizeof(struct bmp_header), 1, file) != 1) {
-        return READ_INVALID_HEADER;
-    }
-    return READ_OK;
-    
+size_t get_padding(size_t width) {
+    return (4 - (sizeof(struct pixel) * width)) % 4;
 }
-
 
 enum write_status write_header(FILE* file, const struct bmp_header* header) {
     if (fwrite(header, sizeof(struct bmp_header), 1, file) != 1) {
@@ -93,6 +88,10 @@ enum write_status write_header(FILE* file, const struct bmp_header* header) {
     return WRITE_OK;
 }
 
-size_t get_padding(size_t width) {
-    return (4 - (sizeof(struct pixel) * width)) % 4;
+enum read_status read_header(FILE* file, struct bmp_header* header) {
+    if (fread(header, sizeof(struct bmp_header), 1, file) != 1) {
+        return READ_INVALID_HEADER;
+    }
+    return READ_OK;
+    
 }

@@ -29,9 +29,9 @@ struct __attribute__((packed)) bmp_header {
 
 size_t get_padding(size_t width);
 
-enum read_status from_bmp( FILE* const in, struct image* const img );
+enum read_status from_bmp( FILE* const in, struct image* img );
 
-enum write_status to_bmp( FILE* const out, const struct image* const img );
+enum write_status to_bmp( FILE* const out,  struct image const* img );
 
 struct bmp_header create_bmp_header(const struct image* img);
 

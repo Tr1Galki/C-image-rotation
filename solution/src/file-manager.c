@@ -7,8 +7,8 @@ bool read_file(FILE** file, char* file_name) {
     return (file != NULL);
 }
 
-bool write_file(char* file_name) {
-    FILE* file = fopen(file_name, "wb");
+bool write_file(FILE** file, char* file_name) {
+    *file = fopen(file_name, "wb");
     return (file != NULL);
 }
 
