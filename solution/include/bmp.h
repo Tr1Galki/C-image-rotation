@@ -1,9 +1,8 @@
 #ifndef BMP_H
 #define BMP_H
-
-#include "image.h"
 #include <stdio.h>
 #include <stdint.h>
+#include "image.h"
 #include "states.h"
 
 struct __attribute__((packed)) bmp_header {
