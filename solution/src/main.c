@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "bmp.h"
 #include "file-manager.h"
 #include "rotate.h"

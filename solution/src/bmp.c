@@ -1,4 +1,3 @@
-#include  <stdint.h>
 #include "bmp.h"
 
 
@@ -44,7 +43,7 @@ enum read_status from_bmp(FILE* const in, struct image* img)
                 }
                 return READ_ERROR;
             }
-            if (fseek(in, padding, SEEK_CUR)){
+            if (fseek(in, (long) padding, SEEK_CUR)){
                 return READ_ERROR;
             }
         }

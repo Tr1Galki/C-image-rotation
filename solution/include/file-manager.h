@@ -1,8 +1,9 @@
 #ifndef FILE_MANAGER
 #define FILE_MANAGER
 
-#include <stdbool.h>
 #include <stdio.h>
+#include <stdbool.h>
+
 #include "bmp.h"
 
 bool read_file(FILE** file, char* file_name);

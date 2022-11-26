@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include "bmp.h"
+#include "file-manager.h"
 
 
 bool read_file(FILE** file, char* file_name) {

@@ -1,5 +1,6 @@
 #ifndef ROTATE_H
 #define ROTATE_H
+#include <stdlib.h>
 
 #include "bmp.h"
 

@@ -5,6 +5,8 @@
 #include "image.h"
 
 
+
+
 struct __attribute__((packed)) bmp_header {
         uint16_t bfType;
         uint32_t bfileSize;

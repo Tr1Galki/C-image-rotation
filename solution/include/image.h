@@ -1,7 +1,7 @@
 #ifndef IMGAE_H
 #define IMAGE_H
-#include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include "states.h"
 
 
