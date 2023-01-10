@@ -8,7 +8,7 @@ int main( int argc, char** argv ) {
     
     FILE *in,*out;
     
-    if(read_file(&in, argv[1]) && write_file(&out, argv[2])) 
+    if(read_file(&in, argv[1]) == READ_OK && write_file(&out, argv[2]) == WRITE_OK) 
     {
         
         struct image img;
@@ -37,8 +37,12 @@ int main( int argc, char** argv ) {
         if (status_w == WRITE_ERROR) 
             printf("%s\n", "write error");
 
-        close_file(in);
-        close_file(out);
+        if (close_file(in) == CLOSE_OK && close_file(out) == CLOSE_OK) {
+            printf("%s\n", "Ooops... We had some problems with closing file...");
+        } else {
+            printf("%s\n", "Files closed successfully");
+        }
+        
         free_image(&img);
         free_image(&rotated_img);
         

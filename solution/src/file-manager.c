@@ -1,16 +1,25 @@
 #include "file-manager.h"
 
 
-bool read_file(FILE** file, char* file_name) {
+enum read_status read_file(FILE** file, char* file_name) {
     *file = fopen(file_name, "rb");
-    return (file != NULL);
+    if (file != NULL) {
+        return READ_OK;
+    } 
+    else {
+        return READ_ERROR;
+    }
 }
 
-bool write_file(FILE** file, char* file_name) {
+enum write_status write_file(FILE** file, char* file_name) {
     *file = fopen(file_name, "wb");
-    return (file != NULL);
+    if (file != NULL) {
+        return WRITE_OK;
+    } else {
+        return WRITE_ERROR;
+    }
 }
 
-bool close_file(FILE* file) {
+enum close_status close_file(FILE* file) {
     return fclose(file) == 0;
 }

@@ -1,26 +1,31 @@
 #include "bmp.h"
 
+#define ZERO 0
+#define TYPE 19778
+#define PLANES 1
+#define BITCOUNT 24
+#define SIZE 40
 
 struct bmp_header create_bmp_header(const struct image* img) {
 
     size_t size = (img->width + get_padding(img->width)) * img->height * sizeof(struct pixel);
 
     return (struct bmp_header){
-            .bfType = 19778,
+            .bfType = TYPE,
             .bfileSize = size + sizeof(struct bmp_header),
-            .bfReserved = 0,
+            .bfReserved = ZERO,
             .bOffBits = sizeof(struct bmp_header),
-            .biSize = 40,
+            .biSize = SIZE,
             .biWidth = img->width,
             .biHeight = img->height,
-            .biPlanes = 1,
-            .biBitCount = 24,
-            .biCompression = 0,
+            .biPlanes = PLANES,
+            .biBitCount = BITCOUNT,
+            .biCompression = ZERO,
             .biSizeImage = size,
-            .biXPelsPerMeter = 0,
-            .biYPelsPerMeter = 0,
-            .biClrUsed = 0,
-            .biClrImportant = 0,
+            .biXPelsPerMeter = ZERO,
+            .biYPelsPerMeter = ZERO,
+            .biClrUsed = ZERO,
+            .biClrImportant = ZERO,
     };
 }
 
@@ -79,7 +84,7 @@ enum write_status to_bmp(FILE* const out,  struct image const* img)
 
 }
 
-size_t get_padding(size_t width) {
+size_t get_padding(const size_t width) {
     return (4 - (sizeof(struct pixel) * width)) % 4;
 }
 

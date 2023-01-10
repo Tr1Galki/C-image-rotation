@@ -3,7 +3,7 @@
 
 
 /*  deserializer   */
-enum read_status {
+enum  read_status {
   READ_OK = 0,
   READ_INVALID_SIGNATURE,
   READ_INVALID_BITS,
@@ -23,6 +23,11 @@ enum write_status {
 enum memory_status {
   ALLOCATE_MEMORY_OK = 0,
   ALLOCATE_MEMORY_ERROR
+};
+
+enum close_status {
+  CLOSE_OK = 0,
+  CLOSE_ERROR
 };
 
 
