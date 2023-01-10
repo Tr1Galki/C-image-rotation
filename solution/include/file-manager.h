@@ -7,10 +7,10 @@
 
 #include "bmp.h"
 
-bool read_file(FILE** file, char* file_name);
+enum read_status read_file(FILE** file, char* file_name);
 
-bool write_file(FILE** file, char* file_name);
+enum write_status write_file(FILE** file, char* file_name);
 
-bool close_file(FILE* file);
+enum close_status close_file(FILE* file);
 
 #endif
